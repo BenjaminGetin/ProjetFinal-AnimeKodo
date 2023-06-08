@@ -1,0 +1,31 @@
+<link rel="stylesheet" type="text/css" th:href="@{/navbar.css}"/>
+<link href="https://fonts.cdnfonts.com/css/anime-ace" rel="stylesheet">
+
+<div th:fragment="navbar" class="navbar">
+    <div class="navbar-container">
+        <a href="/">
+            <img th:src="@{/images/Kodo.png}" alt="Logo" class="navbar-logo"/>
+        </a>
+
+        <nav class="navbar-links">
+            <a href="/anime">Anime</a>
+            <a href="/ranking">Ranking</a>
+            <a href="/watchlist">Watchlist</a>
+        </nav>
+
+        <div class="navbar-buttons">
+            <div th:if="${user == null}">
+                <!-- Si l'utilisateur n'est pas connecté -->
+                <a href="/signup" class="btn btn-signup">Inscription</a>
+                <a href="/login" class="btn btn-login">Connexion</a>
+            </div>
+            <div th:if="${user != null}">
+                <!-- Si l'utilisateur est connecté -->
+                <a href="/profile" class="btn btn-profile">
+                    <img src="path/to/profile/pic" alt="Profile Pic" class="navbar-logo"/>
+                </a>
+                <a href="/logout" class="btn btn-login">Déconnexion</a>
+            </div>
+        </div>
+    </div>
+</div>

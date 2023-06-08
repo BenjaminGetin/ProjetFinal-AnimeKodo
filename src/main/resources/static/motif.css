@@ -1,0 +1,21 @@
+.motif {
+    position: fixed;
+    width: 280px;
+    height: 280px;
+    background-repeat: no-repeat;
+    background-position: center center;
+    background-size: contain;
+    z-index: -1;
+}
+
+.motif-left {
+    left: -100px;
+    top: 200px;
+    background-image: url(images/Motif.png);
+}
+
+.motif-right {
+    right: -100px;
+    top: 80px;
+    background-image: url(images/Motif.png);
+}

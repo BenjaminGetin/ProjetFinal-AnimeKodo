@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="stylesheet" type="text/css" th:href="@{/navbar.css}" />
+    <link rel="stylesheet" type="text/css" th:href="@{/slider.css}">
+    <link rel="stylesheet" type="text/css" th:href="@{/motif.css}">
+    <link href="https://fonts.cdnfonts.com/css/anime-ace" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.8.1/slick.min.css"/>
+    <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.8.1/slick-theme.min.css"/>
+    <style>
+        h1 {
+            margin: 10px;
+            display: flex;
+            justify-content: center;
+            font-family: 'anime ace';
+            color: #f44336;
+        }
+
+        body {
+            height: 100%;
+            width: 100%;
+            margin: 0;
+        }
+    </style>
+</head>
+
+<body>
+<div th:replace="fragments/navbar :: navbar"></div>
+<div th:include="fragments/motifs :: motifs"></div>
+
+<h1>Trending Animes</h1>
+<div class="slider">
+    <div th:each="anime : ${trendingAnimes}" class="slide">
+        <img th:src="${anime.attributes.posterImage.small}" alt="Anime Image" class="slide-image"/>
+        <h2 class="slide-title" th:text="${anime.attributes.titles.en}"></h2>
+        <p class="slide-synopsis" th:text="${anime.attributes.synopsis}"></p>
+        <a th:href="${'details/' + anime.id}" class="details-link slide-details-link">Détails >></a>
+    </div>
+</div>
+
+
+<h1>Upcoming Animes</h1>
+<div class="slider">
+    <div th:each="anime : ${upcomingAnimes}" class="slide">
+        <img th:src="${anime.attributes.posterImage.small}" alt="Anime Image" class="slide-image"/>
+        <h2 class="slide-title" th:text="${anime.attributes.titles.en}"></h2>
+        <p class="slide-synopsis" th:text="${anime.attributes.synopsis}"></p>
+        <a th:href="${'details/' + anime.id}" class="details-link slide-details-link">Détails >></a>
+    </div>
+</div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.8.1/slick.min.js"></script>
+<script th:src="@{/motif.js}"></script>
+<script>
+    $(document).ready(function(){
+        $('.slider').slick({
+            slidesToShow: 3,
+            slidesToScroll: 3,
+            dots: true,
+            autoplay: true,
+            autoplaySpeed: 15000,
+        });
+    });
+
+    const slideElements = document.getElementsByClassName('slide');
+
+    for (const slideElement of slideElements) {
+        const synopsisElement = slideElement.querySelector('.slide-synopsis');
+        const synopsisText = synopsisElement.innerText;
+
+        if (synopsisText.length > 100) {
+            const truncatedText = synopsisText.substring(0, 100).trim();
+            const remainingText = synopsisText.substring(100).trim();
+
+            synopsisElement.innerHTML = truncatedText + '...';
+
+            const detailsLinkElement = slideElement.querySelector('.slide-details-link');
+            const detailsLinkUrl = detailsLinkElement.getAttribute('href');
+
+            const toggleDetails = () => {
+                if (synopsisElement.innerHTML === truncatedText + '...') {
+                    synopsisElement.innerHTML = truncatedText + ' ' + remainingText;
+                    detailsLinkElement.innerHTML = '<< Réduire';
+                } else {
+                    synopsisElement.innerHTML = truncatedText + '...';
+                    detailsLinkElement.innerHTML = 'Détails >>';
+                }
+            };
+
+            detailsLinkElement.addEventListener('click', toggleDetails);
+        }
+    }
+
+
+</script>
+</body>
+</html>

@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <title>Title</title>
+  <link rel="stylesheet" type="text/css" th:href="@{/navbar.css}" />
+  <link rel="stylesheet" type="text/css" th:href="@{/motif.css}">
+  <link href="https://fonts.cdnfonts.com/css/anime-ace" rel="stylesheet">
+  <style>
+    h1 {
+      margin: 10px;
+      display: flex;
+      justify-content: center;
+      font-family: 'anime ace';
+      color: #f44336;
+    }
+
+    body {
+      height: 100%;
+      width: 100%;
+      margin: 0;
+    }
+
+    .search-container {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      margin-bottom: 20px;
+    }
+
+    .search-container input[type="text"],
+    .search-container label {
+      margin-right: 10px;
+    }
+
+
+    .checkbox-container label {
+      margin-right: 10px;
+    }
+
+    .anime-list {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+    }
+
+    .anime-card {
+      display: flex;
+      margin: 10px;
+      padding: 20px;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+      align-items: center;
+      box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
+      transition: 0.3s;
+      max-width: 70%;
+      max-height: 133px;
+      min-width: 70%;
+    }
+
+    .anime-card:hover {
+      box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2);
+    }
+
+    .anime-card img {
+      border-radius: 5px 0 0 5px;
+      width: 150px;
+      height: 150px;
+    }
+
+    .anime-card-content {
+      padding-left: 15px;
+    }
+
+    p {
+      display: -webkit-box;
+      -webkit-line-clamp: 3;
+      -webkit-box-orient: vertical;
+      overflow: hidden;
+    }
+
+
+
+    #pagination {
+      display: flex;
+      justify-content: center;
+      padding: 20px 0;
+    }
+
+    .circle {
+      width: 60px;
+      height: 60px;
+      border-radius: 50%;
+      background-color: #f44336;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      margin: 0 auto;
+      box-shadow: 0 10px 10px rgba(0, 0, 0, 0.2);
+      cursor: pointer;
+      transition: all 0.3s ease;
+      animation: pulse 2s infinite;
+    }
+
+    .circle:hover {
+      transform: scale(1.1);
+    }
+
+    .arrow {
+      width: 0;
+      height: 0;
+      border-left: 10px solid transparent;
+      border-right: 10px solid transparent;
+      border-top: 10px solid white;
+    }
+
+    @keyframes pulse {
+      0% {
+        box-shadow: 0 0 0 0 rgba(0, 0, 0, 0.2);
+      }
+      70% {
+        box-shadow: 0 0 0 10px rgba(0, 0, 0, 0);
+      }
+      100% {
+        box-shadow: 0 0 0 0 rgba(0, 0, 0, 0);
+      }
+    }
+
+  </style>
+</head>
+<body>
+<div th:replace="fragments/navbar :: navbar"></div>
+<div th:replace="fragments/motifs :: motifs"></div>
+
+<h1>Recherche d'animes</h1>
+<div class="search-container">
+  <form id="search-form" action="#" method="get">
+    <input type="text" id="title-input" name="title" placeholder="Nom de l'anime">
+    <select id="subtype-input" name="subtype">
+      <option value="">Tous les types</option>
+      <option value="TV">TV</option>
+      <option value="movie">Movie</option>
+      <!-- ajoutez d'autres options si nécessaire -->
+    </select>
+    <button type="submit">Rechercher</button>
+  </form>
+</div>
+
+<h1>Liste des Animes</h1>
+<div class="anime-list">
+  <div th:each="anime : ${animes}" class="anime-card" style="display:none">
+    <img th:src="${anime.image}" alt="Image Anime">
+    <div class="anime-card-content">
+      <h3 th:text="${anime.title}"></h3>
+      <p th:text="${anime.synopsis}"></p>
+    </div>
+  </div>
+</div>
+
+
+<div id="pagination">
+  <div id="load-more" class="circle">
+    <div class="arrow"></div>
+  </div>
+</div>
+
+
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.8.1/slick.min.js"></script>
+<script th:src="@{/motif.js}"></script>
+<script>
+  $(document).ready(function() {
+    var pageSize = 10;  // Modifié à 10
+    var currentPage = 1;
+    var totalPages = 0;
+    var filtered = $(".anime-card");
+
+    function filterAnimes() {
+      var title = $('#title-input').val().toLowerCase();
+      var subtype = $('#subtype-input').val();
+
+      $(".anime-card").hide();
+      filtered = $(".anime-card").filter(function() {
+        var cardTitle = $(this).find("h3").text().toLowerCase();
+        var cardSubtype = $(this).find("p").text().toLowerCase();
+        return (!title || cardTitle.includes(title)) && (!subtype || cardSubtype == subtype);
+      });
+
+      totalPages = Math.ceil(filtered.length / pageSize);
+      currentPage = 1;
+      loadPage(currentPage, filtered);
+    }
+
+    function loadPage(pageNumber, elements) {
+      var start = (pageNumber - 1) * pageSize;
+      var end = start + pageSize;
+
+      elements.slice(start, end).show();
+      $("#load-more").prop("disabled", pageNumber >= totalPages);
+    }
+
+
+    $('#search-form').submit(function(event) {
+      event.preventDefault();
+      filterAnimes();
+    });
+
+    $("#load-more").click(function() {
+      if (currentPage < totalPages) {
+        currentPage++;
+        loadPage(currentPage, filtered);
+      }
+    });
+
+
+// Initialize the first page
+    filterAnimes();
+
+  });
+</script>
+</body>
+</html>
