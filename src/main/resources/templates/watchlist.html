@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Watchlist</title>
+    <link rel="stylesheet" type="text/css" th:href="@{/css/navbar.css}"/>
+    <link rel="stylesheet" type="text/css" th:href="@{/css/motif.css}">
+    <link rel="stylesheet" type="text/css" th:href="@{/css/watchlist.css}">
+    <link href="https://fonts.cdnfonts.com/css/anime-ace" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.css"/>
+
+</head>
+<body>
+<div th:replace="fragments/navbar :: navbar"></div>
+<div th:replace="fragments/motifs :: motifs"></div>
+<h1>Watchlist</h1>
+<div class="anime-list">
+    <a th:each="anime : ${animes}" th:href="@{'/animes/' + ${anime.id}}">
+        <div class="anime-card">
+            <img th:src="${anime.image}" alt="Image de l'anime">
+            <div class="anime-card-content">
+                <h3 th:text="${anime.title}"></h3>
+                <p th:text="${anime.synopsis}"></p>
+            </div>
+        </div>
+    </a>
+</div>
+
+<div id="pagination">
+    <div id="load-more" class="circle">
+        <div class="arrow"></div>
+    </div>
+</div>
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.min.js"></script>
+<script th:src="@{/js/motif.js}"></script>
+<script th:src="@{/js/watchlist.js}"></script>
+
+</body>
+</html>

@@ -1,6 +1,3 @@
-<link rel="stylesheet" type="text/css" th:href="@{/navbar.css}"/>
-<link href="https://fonts.cdnfonts.com/css/anime-ace" rel="stylesheet">
-
 <div th:fragment="navbar" class="navbar">
     <div class="navbar-container">
         <a href="/">
@@ -9,23 +6,59 @@
 
         <nav class="navbar-links">
             <a href="/anime">Anime</a>
-            <a href="/ranking">Ranking</a>
             <a href="/watchlist">Watchlist</a>
         </nav>
 
         <div class="navbar-buttons">
             <div th:if="${user == null}">
                 <!-- Si l'utilisateur n'est pas connecté -->
-                <a href="/signup" class="btn btn-signup">Inscription</a>
-                <a href="/login" class="btn btn-login">Connexion</a>
+                <a th:href="@{/signup}" class="btn btn-signup">SignUp</a>
+                <a th:href="@{/login}" class="btn btn-login">LogIn</a>
             </div>
             <div th:if="${user != null}">
                 <!-- Si l'utilisateur est connecté -->
-                <a href="/profile" class="btn btn-profile">
-                    <img src="path/to/profile/pic" alt="Profile Pic" class="navbar-logo"/>
-                </a>
-                <a href="/logout" class="btn btn-login">Déconnexion</a>
+                <a th:href="@{/profil}" class="btn btn-signup">Profil</a>
+                <a th:href="@{/logout}" class="btn btn-login">LogOut</a>
             </div>
         </div>
     </div>
 </div>
+
+<nav th:fragment="navbar-mobile-top" class="navbar-mobile-top">
+    <div class="navbar-mobile-top-logo">
+        <a href="/">
+            <img th:src="@{/images/Kodo.png}" alt="Logo" class="navbar-logo"/>
+        </a>
+    </div>
+    <div class="navbar-mobile-top-buttons">
+        <div th:if="${user == null}">
+            <a th:href="@{/login}" class="navbar-mobile-top-link-login">LogIn</a>
+            <a th:href="@{/signup}" class="navbar-mobile-top-link-signup">SignUp</a>
+        </div>
+        <div th:if="${user != null}">
+            <a th:href="@{/profil}" class="navbar-mobile-top-link-signup">Profil</a>
+        </div>
+    </div>
+</nav>
+
+<nav th:fragment="navbar-mobile-bottom" class="navbar-mobile-bottom">
+    <a href="/" class="navbar-mobile-bottom-link active">
+        <img th:src="@{/images/home.png}" alt="Home">
+    </a>
+    <a href="/anime" class="navbar-mobile-bottom-button">
+        <img src="/images/search.png" alt="Search">
+    </a>
+    <a href="/watchlist" class="navbar-mobile-bottom-link">
+        <img th:src="@{/images/watchlist.png}" alt="Watchlist">
+    </a>
+    <div th:if="${user != null}">
+        <a th:href="@{/logout}" class="navbar-mobile-bottom-button">
+            <img th:src="@{/images/power.png}" alt="Disconnect">
+        </a>
+    </div>
+    <div th:if="${user == null}">
+        <a th:href="@{/login}" class="navbar-mobile-bottom-button">
+            <img src="/images/login.png" alt="Login">
+        </a>
+    </div>
+</nav>

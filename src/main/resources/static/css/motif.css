@@ -10,12 +10,12 @@
 
 .motif-left {
     left: -100px;
-    top: 200px;
-    background-image: url(images/Motif.png);
+    top: 35%;
+    background-image: url(../images/Motif.png);
 }
 
 .motif-right {
     right: -100px;
-    top: 80px;
-    background-image: url(images/Motif.png);
+    top: 15%;
+    background-image: url(../images/Motif.png);
 }

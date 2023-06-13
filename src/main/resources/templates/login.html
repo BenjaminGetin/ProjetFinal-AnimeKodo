@@ -1,17 +1,23 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<html xmlns:th="http://www.thymeleaf.org">
+
 <head>
-  <meta charset="UTF-8">
   <title>Login</title>
+  <link href="https://fonts.cdnfonts.com/css/anime-ace" rel="stylesheet">
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
-  <style>
-    /* styles spécifiques */
-  </style>
+  <link rel="stylesheet" type="text/css" th:href="@{/css/form-page.css}">
 </head>
 <body>
+<a href="/" class="back-btn">
+  <i class="fas fa-arrow-left"></i>
+</a>
 <div class="container">
-  <h1>Login</h1>
-  <form th:action="@{/login}" method="post">
+  <div class="logo">
+    <img th:src="@{/images/Kodo.png}" alt="Logo">
+  </div>
+
+  <h1 class="text-center">Login</h1>
+  <form th:action="@{/login}" th:object="${authRequest}" method="post">
     <div class="form-group">
       <label for="username">Username</label>
       <input type="text" id="username" name="username" class="form-control" required>
@@ -20,8 +26,12 @@
       <label for="password">Password</label>
       <input type="password" id="password" name="password" class="form-control" required>
     </div>
-    <button type="submit" class="btn btn-primary">Login</button>
+    <button type="submit" class="btn btn-primary btn-block">Login</button>
+    <span></span>
   </form>
+  <a th:href="@{/signup}"><button class="btn btn-primary btn-block"> Signup</button></a>
 </div>
+<script src="https://kit.fontawesome.com/5ea815c1d0.js"></script>
 </body>
+
 </html>

@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.w3.org/1999/xhtml">
+
+<head>
+    <title>Détails de l'anime</title>
+    <link href="https://fonts.cdnfonts.com/css/anime-ace" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" th:href="@{/css/navbar.css}"/>
+    <link rel="stylesheet" type="text/css" th:href="@{/css/motif.css}">
+    <link rel="stylesheet" type="text/css" th:href="@{/css/comment.css}">
+    <link rel="stylesheet" type="text/css" th:href="@{/css/anime-details.css}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+    <script src="https://kit.fontawesome.com/5ea815c1d0.js"></script>
+</head>
+<body>
+<div th:replace="fragments/navbar :: navbar"></div>
+<div th:replace="fragments/motifs :: motifs"></div>
+
+<div class="container">
+    <div class="title">
+        <h1 th:text="${anime.title}">Titre de l'anime</h1>
+    </div>
+
+    <div class="image-wrapper">
+        <img th:src="${anime.image}" alt="Image de l'anime">
+        <div class="buttonHolder">
+            <a href="#" class="button heart heart-button" th:data-anime-id="${anime.id}"
+               th:data-user-id="${userId}"></a>
+        </div>
+    </div>
+
+    <form th:action="@{/animes/{animeId}/ratings(animeId=${anime.id})}" method="post" id="ratingForm">
+        <div class="rate">
+            <input type="radio" id="star5" name="selectedRating" value="5" th:checked="${userRating != null and userRating.rating == 5}"/>
+            <label for="star5" title="text">5 stars</label>
+            <input type="radio" id="star4" name="selectedRating" value="4" th:checked="${userRating != null and userRating.rating == 4}"/>
+            <label for="star4" title="text">4 stars</label>
+            <input type="radio" id="star3" name="selectedRating" value="3" th:checked="${userRating != null and userRating.rating == 3}"/>
+            <label for="star3" title="text">3 stars</label>
+            <input type="radio" id="star2" name="selectedRating" value="2" th:checked="${userRating != null and userRating.rating == 2}"/>
+            <label for="star2" title="text">2 stars</label>
+            <input type="radio" id="star1" name="selectedRating" value="1" th:checked="${userRating != null and userRating.rating == 1}"/>
+            <label for="star1" title="text">1 star</label>
+
+        </div>
+        <input type="submit" value="Submit" style="display: none;">
+    </form>
+    <span class="rating"><span th:text="${averageRating}"></span>/5</span>
+    <div class="details">
+        <h3>Anime Details</h3>
+        <ul>
+            <li><strong>Start Date:</strong> <span th:text="${anime.startDate}"></span></li>
+            <li><strong>End Date:</strong> <span th:text="${anime.endDate}"></span></li>
+            <li><strong>Number of Episodes:</strong> <span th:text="${anime.episodeCount}"></span></li>
+            <li><strong>Episode Duration:</strong> <span th:text="${anime.episodeLength}"></span></li>
+            <li><strong>Subtype:</strong> <span th:text="${anime.subtype}"></span></li>
+            <li><strong>Status:</strong> <span th:text="${anime.status}"></span></li>
+            <li><strong>Age Rating:</strong> <span th:text="${anime.ageRatingGuide}"></span></li>
+        </ul>
+    </div>
+
+    <div class="synopsis">
+        <h3>Synopsis</h3>
+        <p th:text="${anime.synopsis}"></p>
+    </div>
+
+    <div class="comment-form">
+        <h3>Post a Comment</h3>
+        <form th:action="@{/animes/{animeId}/comments(animeId=${anime.id})}" method="post">
+            <div class="mb-3">
+                <textarea class="form-control" name="content" rows="5" placeholder="Your comment"></textarea>
+            </div>
+            <button class="btn btn-primary" type="submit">Post</button>
+        </form>
+    </div>
+
+    <div class="comments">
+        <h3>Comments</h3>
+        <div th:if="${comments}">
+            <ul>
+                <div th:fragment="comment">
+                    <ul>
+                        <li th:each="comment : ${comments}">
+                            <div class="comment" th:attr="data-comment-id=${comment.id}">
+                                <div class="header">
+                                    <span class="comment-author" th:text="${comment.user.username}"></span>
+                                    <span class="comment-date"
+                                          th:text="${#temporals.format(comment.createdAt, 'dd-MM-yyyy HH:mm')}"></span>
+                                </div>
+                                <span class="comment-content" th:text="${comment.content}"></span>
+
+                                <!-- Ajoutez la classe .principal-data à cet élément -->
+                                <div class="principal-data"
+                                     th:if="${user != null}"
+                                     th:attr="data-principal-id=${user.id}, data-principal-name=${user.username}"></div>
+
+
+                                <a href="#" class="btn-comment btn-comment-edit"
+                                   th:if="${comment.user.username == username}"
+                                   th:data-comment-id="${comment.id}" th:data-anime-id="${anime.id}"
+                                   onclick="showEditCommentForm(this)">Edit</a>
+                                <a href="#" class="btn-comment btn-comment-delete"
+                                   th:if="${user != null and (comment.user.username == user.username or user.role.name() == 'ADMIN')}"                                   th:data-comment-id="${comment.id}" th:data-anime-id="${anime.id}"
+                                   onclick="deleteComment(this)">Delete</a>
+
+
+                                <div id="'edit-comment-form-' + ${comment.id}" style="display: none;">
+                                    <form th:id="'edit-comment-form-' + ${comment.id}"
+                                          onsubmit="preventDefault(); updateComment(this);">
+                                        <textarea name="content" class="form-control" rows="3"></textarea>
+                                    </form>
+                                </div>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+
+            </ul>
+        </div>
+        <div th:unless="${comments}">
+            <p>No comments available.</p>
+        </div>
+    </div>
+
+</div>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/js/all.min.js"></script>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="https://code.jquery.com/ui/1.13.0/jquery-ui.min.js"></script>
+
+<script th:src="@{/js/anime-details.js}"></script>
+
+</body>
+</html>

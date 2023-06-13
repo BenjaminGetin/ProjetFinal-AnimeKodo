@@ -1,5 +1,33 @@
+h1 {
+    margin: 10px;
+    display: flex;
+    justify-content: center;
+    font-family: 'anime ace';
+    color: #f44336;
+}
+
+body {
+    height: 100%;
+    width: 100%;
+    margin: 0;
+}
+
+@media (max-width: 991.98px) {
+    .navbar {
+        display: none;
+    }
+
+    .navbar-mobile-top {
+        display: flex;
+    }
+
+    .navbar-mobile-bottom {
+        display: flex;
+    }
+}
+
 .slider {
-    width: 80%;
+    width: 90%;
     margin: auto;
     display: flex;
     flex-wrap: wrap;
@@ -9,7 +37,7 @@
 
 .slide {
     flex-basis: calc(33.33% - 20px);
-    margin: 10px;
+    margin: 20px;
     padding: 10px;
     border: 1px solid #ddd;
     background-color: #f9f9f9;
@@ -18,6 +46,7 @@
     display: flex;
     flex-direction: column;
     justify-content: space-between;
+    border-radius: 15px 15px 5px 5px;
 }
 
 .slide:hover {
@@ -41,6 +70,10 @@
     margin: 10px 0;
     font-size: clamp(1.2em, 2vw, 1.5em);
     color: #333;
+    display: -webkit-box;
+    -webkit-line-clamp: 1;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
 }
 
 .slide-synopsis {
@@ -48,7 +81,13 @@
     max-height: 100px;
     overflow: hidden;
     text-overflow: ellipsis;
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
 }
+
+
 
 .slide-details {
     margin-top: auto;
@@ -64,4 +103,14 @@
     margin: 10px 0;
 }
 
+a {
+    text-decoration: none;
+    color: inherit;
+}
+
+@media (max-width: 767.98px) {
+    .slide {
+        flex-basis: 100%;
+    }
+}
 

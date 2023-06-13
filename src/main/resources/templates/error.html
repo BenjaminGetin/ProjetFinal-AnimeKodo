@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <title>Error</title>
+  <link rel="stylesheet" type="text/css" th:href="@{/css/navbar.css}"/>
+  <link rel="stylesheet" type="text/css" th:href="@{/css/motif.css}">
+  <link rel="stylesheet" type="text/css" th:href="@{/css/animes.css}">
+  <link href="https://fonts.cdnfonts.com/css/anime-ace" rel="stylesheet">
+  <style>
+
+    .error-message {
+      color: red;
+    }
+
+  </style>
+</head>
+<body>
+<div th:replace="fragments/navbar :: navbar"></div>
+<div th:replace="fragments/motifs :: motifs"></div>
+
+<div class="search-container">
+  <h1>An error occurred:</h1>
+  <p th:text="${errorMessage}"></p>
+</div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.8.1/slick.min.js"></script>
+<script th:src="@{/js/animes.js}"></script>
+<script th:src="@{/js/motif.js}"></script>
+</body>
+</html>

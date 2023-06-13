@@ -1,2 +1,8 @@
-package fr.kitsuapirest.model;public class Role {
+package fr.kitsuapirest.model;
+
+public enum Role {
+
+    USER,
+
+    ADMIN
 }

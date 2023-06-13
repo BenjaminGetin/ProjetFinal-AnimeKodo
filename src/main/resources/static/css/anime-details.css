@@ -1,0 +1,333 @@
+* {
+    box-sizing: border-box;
+}
+
+h1 {
+    margin: 10px;
+    display: flex;
+    justify-content: center;
+    font-family: 'anime ace';
+    color: #f44336;
+}
+
+body {
+    margin: 0;
+    padding: 0;
+    background-color: #f8f8f8;
+}
+
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 20px;
+}
+
+.title {
+    text-align: center;
+    margin-bottom: 20px;
+    font-family: 'anime ace', sans-serif;
+}
+
+.image-wrapper {
+    position: relative;
+    text-align: center;
+    margin-top: 20px;
+}
+
+
+.image-wrapper img {
+    width: 300px;
+    height: auto;
+}
+
+.details {
+    background-color: #ffffff;
+    border: 1px solid #dddddd;
+    padding: 20px;
+    margin-top: 20px;
+    border-radius: 10px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+
+}
+
+.details ul {
+    list-style: none;
+    padding: 0;
+}
+
+.details li {
+    margin-bottom: 10px;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+}
+
+.rate {
+    float: left;
+    height: 46px;
+    padding: 0 10px;
+}
+
+.rate:not(:checked) > input {
+    position: absolute;
+    top: -9999px;
+}
+
+.rate:not(:checked) > label {
+    float: right;
+    width: 1em;
+    overflow: hidden;
+    white-space: nowrap;
+    cursor: pointer;
+    font-size: 30px;
+    color: #ccc;
+}
+
+.rate:not(:checked) > label:before {
+    content: '★ ';
+}
+
+.rate > input:checked ~ label {
+    color: #ffc700;
+}
+
+.rate:not(:checked) > label:hover,
+.rate:not(:checked) > label:hover ~ label {
+    color: #deb217;
+}
+
+.rate > input:checked + label:hover,
+.rate > input:checked + label:hover ~ label,
+.rate > input:checked ~ label:hover,
+.rate > input:checked ~ label:hover ~ label,
+.rate > label:hover ~ input:checked ~ label {
+    color: #c59b08;
+}
+
+
+.star-wrapper a {
+    color: #ffd700;
+    margin-right: 5px;
+    cursor: pointer;
+}
+
+.star-wrapper a:hover {
+    color: #ffac00;
+}
+
+#ratingForm {
+    display: flex;
+    justify-content: center;
+}
+
+.rating {
+    font-family: 'Anime Ace', sans-serif;
+    font-size: 1.25em;
+    justify-content: center;
+    display: flex;
+    color: #e73131;
+}
+
+.synopsis {
+    background-color: #ffffff;
+    border: 1px solid #dddddd;
+    padding: 20px;
+    margin-top: 20px;
+    border-radius: 10px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.comment-form {
+    background-color: #ffffff;
+    border: 1px solid #dddddd;
+    padding: 20px;
+    margin-top: 20px;
+}
+
+.comment-form textarea {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #dddddd;
+    border-radius: 4px;
+    resize: vertical;
+}
+
+.comment-form button {
+    background-color: #f44336;
+    color: #ffffff;
+    border: none;
+    padding: 10px 20px;
+    cursor: pointer;
+}
+
+.comments {
+    background-color: #ffffff;
+    border: 1px solid #dddddd;
+    padding: 20px;
+    margin-top: 20px;
+}
+
+@media (max-width: 767px) {
+    .details,
+    .synopsis,
+    .comment-form,
+    .comments {
+        margin-top: 10px;
+        padding: 10px;
+    }
+
+    .comment-form button {
+        margin-top: 10px;
+    }
+}
+
+
+
+
+.buttonHolder {
+    margin: 80px auto;
+    width: 400px;
+    position: absolute;
+    top: -4%;
+    left: 65%;
+    transform: translate(-50%, -50%);
+}
+
+
+.button {
+    background-image: -webkit-linear-gradient(top, #f4f1ee, #fff);
+    background-image: linear-gradient(top, #f4f1ee, #fff);
+    border-radius: 50%;
+    box-shadow: 0px 8px 10px 0px rgba(0, 0, 0, .3), inset 0px 4px 1px 1px white, inset 0px -3px 1px 1px rgba(204, 198, 197, .5);
+    float: left;
+    height: 70px;
+    margin: 0 30px 30px 0;
+    position: relative;
+    width: 70px;
+    -webkit-transition: all .1s linear;
+    transition: all .1s linear;
+}
+
+.button:after {
+    color: #e9e6e4;
+    content: "";
+    display: block;
+    font-size: 30px;
+    height: 30px;
+    text-decoration: none;
+    text-shadow: 0px -1px 1px #bdb5b4, 1px 1px 1px white;
+    position: absolute;
+    width: 30px;
+}
+
+
+.heart:after {
+    content: "❤";
+    left: 21px;
+    top: 21px;
+}
+
+
+.button:hover {
+    background-image: -webkit-linear-gradient(top, #fff, #f4f1ee);
+    background-image: linear-gradient(top, #fff, #f4f1ee);
+    color: #0088cc;
+}
+
+.heart:hover:after {
+    color: #f94e66;
+    text-shadow: 0px 0px 6px #f94e66;
+}
+
+.red:after {
+    color: #f94e66;
+    text-shadow: 0px 0px 6px #f94e66;
+}
+
+
+.button:active {
+    background-image: -webkit-linear-gradient(top, #efedec, #f7f4f4);
+    background-image: linear-gradient(top, #efedec, #f7f4f4);
+    box-shadow: 0 3px 5px 0 rgba(0, 0, 0, .4), inset 0px -3px 1px 1px rgba(204, 198, 197, .5);
+}
+
+.button:active:after {
+    color: #dbd2d2;
+    text-shadow: 0px -1px 1px #bdb5b4, 0px 1px 1px white;
+}
+
+
+.comment {
+    position: relative;
+}
+
+
+.btn-comment-edit, .btn-comment-delete {
+    position: absolute;
+    top: 0;
+    right: 0;
+    opacity: 0;
+    transition: opacity 0.3s;
+}
+
+.comment:hover .btn-comment-edit,
+.comment:hover .btn-comment-delete {
+    opacity: 1;
+}
+
+.btn-comment-edit {
+    right: 50px;
+}
+
+.btn-comment {
+    background-color: #f44336;
+    color: #ffffff;
+    border: none;
+    padding: 5px 10px;
+    cursor: pointer;
+    text-decoration: none;
+    font-size: 0.8em;
+}
+
+
+.ui-dialog .ui-dialog-content {
+    background-color: #ffffff;
+    border: 1px solid #dddddd;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.ui-dialog .ui-dialog-titlebar {
+    background-color: #f44336;
+    color: #ffffff;
+    padding: 10px;
+}
+
+.ui-dialog .ui-dialog-buttonpane {
+    background-color: #ffffff;
+    padding: 10px;
+    text-align: right;
+}
+
+.ui-dialog .ui-dialog-buttonpane .ui-button {
+    background-color: #f44336;
+    color: #ffffff;
+    border: none;
+    padding: 10px 20px;
+    cursor: pointer;
+}
+
+.ui-dialog .ui-dialog-buttonpane .ui-button:hover {
+    background-color: #ff5722;
+}
+
+.ui-dialog textarea {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #dddddd;
+    border-radius: 4px;
+    resize: vertical;
+}

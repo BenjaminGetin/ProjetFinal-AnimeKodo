@@ -6,8 +6,12 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 @SpringBootApplication
 public class KitsuApiRestApplication {
 
-    public static void main(String[] args) {
-        SpringApplication.run(KitsuApiRestApplication.class, args);
-    }
+	public static void main(String[] args) {
+		SpringApplication.run(KitsuApiRestApplication.class, args);
+	}
 
+    //@PostConstruct
+    //public void init() {
+    //    kitsuApiService.syncDataFromKitsu();
+    //}
 }

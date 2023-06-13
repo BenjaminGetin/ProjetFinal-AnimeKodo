@@ -1,2 +1,8 @@
-package fr.kitsuapirest.exception;public class UnauthorizedException {
+package fr.kitsuapirest.exception;
+
+public class UnauthorizedException extends RuntimeException {
+
+    public UnauthorizedException(String message) {
+        super(message);
+    }
 }
