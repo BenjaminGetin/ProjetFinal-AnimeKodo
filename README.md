@@ -32,7 +32,7 @@ Before running the application, ensure that you have the following installed:
 - Java Development Kit (JDK)
 - MySQL database server
 - MySQL database configuration (see application.properties for details)
-- 
+
 ## Data Source
 
 The anime data used in this project is sourced from the [Kitsu API](https://kitsu.docs.apiary.io/). The Kitsu API provides a comprehensive collection of anime information, including titles, synopses, ratings, and more. I would like to acknowledge and express my gratitude to the Kitsu team for their efforts in curating and maintaining this valuable data resource.
@@ -44,7 +44,7 @@ To get started with Anime Kodo, follow these steps:
 
 1. Clone the repository:
 
-git clone https://github.com/BenjaminGetin/ProjetFinal-AnimeKodo
+`git clone https://github.com/BenjaminGetin/ProjetFinal-AnimeKodo`
 
 
 2. Open the project in your preferred IDE.
