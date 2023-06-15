@@ -15,7 +15,7 @@ public class Watchlist {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @NotNull(message = "L'ID de l'utilisateur ne peut pas être nul")
+    @NotNull(message = "User id cannot be null")
     @ManyToOne
     @JoinColumn(name = "user_id")
     @JsonBackReference

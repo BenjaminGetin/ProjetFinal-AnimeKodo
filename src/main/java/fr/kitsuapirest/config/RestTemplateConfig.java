@@ -51,4 +51,5 @@ public class RestTemplateConfig {
         factory.setConnectTimeout(5000);
         return factory;
     }
+
 }

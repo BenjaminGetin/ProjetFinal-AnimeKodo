@@ -9,6 +9,7 @@ import jakarta.validation.Valid;
 import org.springframework.http.*;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.client.RestClientException;
 import org.springframework.web.client.RestTemplate;
@@ -114,7 +115,7 @@ public class FormController {
 
         try {
             restTemplate.postForEntity(apiUrl, request, Void.class);
-            return "redirect:/dashboard";
+            return "redirect:/login";
         } catch (RestClientException e) {
             model.addAttribute("error", "An error occurred during password change");
             return "change-password";
@@ -130,6 +131,8 @@ public class FormController {
     @GetMapping("/signup")
     public String showSignUpForm(Model model) {
         model.addAttribute("user", new User());
+        model.addAttribute("userForm", new UserRegistrationForm());
+
         return "signup";
     }
 
@@ -140,7 +143,13 @@ public class FormController {
      * @return a redirect URL to the login page on successful signup.
      */
     @PostMapping("/signup")
-    public String signUpUser(@ModelAttribute("user") UserRegistrationForm userForm) {
+    public String signUpUser(@ModelAttribute("user") @Valid UserRegistrationForm userForm, BindingResult bindingResult, Model model) {
+        if (bindingResult.hasErrors()) {
+            // S'il y a des erreurs de validation, retourner le modèle avec les erreurs
+            return "signup"; // Ou le nom de votre modèle Thymeleaf pour la page d'inscription
+        }
+
+
         String apiUrl = "http://localhost:8080/api/users";
 
         HttpHeaders headers = new HttpHeaders();
@@ -155,8 +164,13 @@ public class FormController {
 
         HttpEntity<User> request = new HttpEntity<>(newUser, headers);
 
-        restTemplate.postForObject(apiUrl, request, User.class);
-
-        return "redirect:/login";
+        try {
+            restTemplate.postForEntity(apiUrl, request, Void.class);
+            return "redirect:/login";
+        } catch (RestClientException e) {
+            model.addAttribute("error", "An error occurred during account creation");
+            return "signup"; // Ou le nom de votre modèle Thymeleaf pour la page d'inscription
+        }
     }
+
 }

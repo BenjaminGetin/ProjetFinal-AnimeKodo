@@ -16,20 +16,20 @@ public class Comment {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @NotNull(message = "La date de création ne peut pas être nulle")
+    @NotNull(message = "Data of create cannot be null")
     private LocalDateTime createdAt;
 
-    @NotEmpty(message = "Le contenu du commentaire ne peut pas être vide")
+    @NotEmpty(message = "Content's comment cannot be empty")
     @Column(columnDefinition = "TEXT")
     private String content;
 
-    @NotNull(message = "L'ID de l'utilisateur ne peut pas être nul")
+    @NotNull(message = "User ID cannot be null")
     @ManyToOne
     @JoinColumn(name = "user_id")
     @JsonBackReference
     private User user;
 
-    @NotNull(message = "L'ID de l'anime ne peut pas être nul")
+    @NotNull(message = "Anime ID cannot be null")
     @ManyToOne
     @JoinColumn(name = "anime_id")
     private Anime anime;

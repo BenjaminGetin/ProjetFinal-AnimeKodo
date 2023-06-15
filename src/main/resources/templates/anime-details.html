@@ -13,8 +13,9 @@
 </head>
 <body>
 <div th:replace="fragments/navbar :: navbar"></div>
-<div th:replace="fragments/motifs :: motifs"></div>
-
+<div th:replace="fragments/navbar :: navbar-mobile-top"></div>
+<div th:replace="fragments/navbar :: navbar-mobile-bottom"></div>
+<div th:include="fragments/motifs :: motifs"></div>
 <div class="container">
     <div class="title">
         <h1 th:text="${anime.title}">Titre de l'anime</h1>
@@ -88,7 +89,7 @@
                                 </div>
                                 <span class="comment-content" th:text="${comment.content}"></span>
 
-                                <!-- Ajoutez la classe .principal-data à cet élément -->
+
                                 <div class="principal-data"
                                      th:if="${user != null}"
                                      th:attr="data-principal-id=${user.id}, data-principal-name=${user.username}"></div>
@@ -99,9 +100,9 @@
                                    th:data-comment-id="${comment.id}" th:data-anime-id="${anime.id}"
                                    onclick="showEditCommentForm(this)">Edit</a>
                                 <a href="#" class="btn-comment btn-comment-delete"
-                                   th:if="${user != null and (comment.user.username == user.username or user.role.name() == 'ADMIN')}"                                   th:data-comment-id="${comment.id}" th:data-anime-id="${anime.id}"
+                                   th:if="${user != null and (comment.user.username == user.username or user.role.name() == 'ADMIN')}"
+                                   th:data-comment-id="${comment.id}" th:data-anime-id="${anime.id}"
                                    onclick="deleteComment(this)">Delete</a>
-
 
                                 <div id="'edit-comment-form-' + ${comment.id}" style="display: none;">
                                     <form th:id="'edit-comment-form-' + ${comment.id}"
@@ -127,6 +128,7 @@
 <script src="https://code.jquery.com/ui/1.13.0/jquery-ui.min.js"></script>
 
 <script th:src="@{/js/anime-details.js}"></script>
+<script th:src="@{/js/navbar-mobile.js}"></script>
 
 </body>
 </html>

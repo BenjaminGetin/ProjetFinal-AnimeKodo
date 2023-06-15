@@ -2,6 +2,7 @@ package fr.kitsuapirest.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
+import fr.kitsuapirest.config.StrongPassword;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotEmpty;
@@ -24,31 +25,30 @@ public class User implements UserDetails {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
-    @NotEmpty(message = "Le nom ne peut pas être vide")
+    @NotEmpty(message = "First name cannot be empty")
     private String firstname;
 
-    @NotEmpty(message = "Le nom ne peut pas être vide")
+    @NotEmpty(message = "Last name cannot be empty")
     private String lastname;
 
-
-    @NotEmpty(message = "Le nom ne peut pas être vide")
-    @Size(min = 6, max = 24, message = "Le nom doit faire de 6 à 24 caractères")
+    @NotEmpty(message = "Username cannot be empty")
+    @Size(min = 6, max = 24, message = "Username must be between 6 and 24 characters")
     @Column(unique = true)
     private String username;
 
-    @NotEmpty(message = "L'email ne peut pas être vide")
-    @Email(message = "L'email doit être valide")
+    @NotEmpty(message = "Email cannot be empty")
+    @Email(message = "Email must be valid")
     @Column(unique = true)
     private String email;
 
-    @NotEmpty(message = "Le mot de passe ne peut pas être vide")
+    @NotEmpty(message = "Password cannot be empty")
+    @StrongPassword
     private String password;
 
     @Enumerated(EnumType.STRING)
     private Role role;
 
 
-    // Ajoutez ici les autres attributs spécifiques à l'utilisateur
 
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     @JsonManagedReference

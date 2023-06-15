@@ -37,7 +37,6 @@ public class SpringSecurityConfig {
                         .requestMatchers("/animes").permitAll()
                         .requestMatchers("/animes/search").permitAll()
                         .requestMatchers("/animes/{id}").permitAll()
-                        .requestMatchers("/animes/{id}/comments").authenticated()
                         .requestMatchers("/animes/{id}/comments/{commentId}").permitAll()
                         .requestMatchers(("/profil")).authenticated()
                         .requestMatchers("/watchlist").authenticated()

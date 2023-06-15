@@ -12,6 +12,7 @@ import fr.kitsuapirest.service.UserService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.NoHandlerFoundException;
 
 import java.security.Principal;
 import java.time.LocalDateTime;
@@ -24,9 +25,13 @@ import java.util.List;
 public class AnimeDetailsController {
 
     private final AnimeService animeService;
+
     private final UserService userService;
+
     private final CommentService commentService;
+
     private final RatingService ratingService;
+
 
     public AnimeDetailsController(AnimeService animeService, UserService userService, CommentService commentService, RatingService ratingService) {
         this.animeService = animeService;
@@ -42,11 +47,13 @@ public class AnimeDetailsController {
      * @param model     the Model object to populate data for the view.
      * @param principal the authenticated principal representing the user.
      * @return the name of the view template for the anime details page.
-     * @throws AnimeNotFoundException if the anime is not found.
+
      */
     @GetMapping("/animes/{id}")
     public String getAnimeDetails(@PathVariable Long id, Model model, Principal principal) {
         Anime anime = animeService.getAnimeById(id);
+
+
 
         Integer userId = null;
         String username = null;
@@ -93,6 +100,7 @@ public class AnimeDetailsController {
         User user = userService.getUserByUsername(principal.getName());
         Anime anime = animeService.getAnimeById(animeId);
 
+
         Comment comment = new Comment();
         comment.setContent(commentForm.getContent());
         comment.setUser(user);
@@ -103,8 +111,11 @@ public class AnimeDetailsController {
         if (createdComment != null) {
             return "redirect:/animes/" + animeId;
         } else {
+
             return "redirect:/animes/" + animeId;
         }
+
+
     }
 
     /**
@@ -117,14 +128,18 @@ public class AnimeDetailsController {
      */
     @PostMapping("/animes/{id}/ratings")
     public String addRating(@PathVariable("id") Long animeId, @RequestParam("selectedRating") int selectedRating, Principal principal) {
+
         if (principal == null) {
             return "redirect:/login"; // Redirect to the login page
         }
 
+        // Récupérer l'objet User à partir de Principal
         User user = userService.getUserByUsername(principal.getName());
+        // Récupérer l'objet Anime à partir de l'ID
         Anime anime = animeService.getAnimeById(animeId);
 
-        Rating rating = new Rating(4.5); // Set a default rating value
+        // Créer l'objet de données à envoyer à l'API
+        Rating rating = new Rating();
         rating.setRating(selectedRating);
         rating.setUser(user);
         rating.setAnime(anime);
@@ -138,12 +153,13 @@ public class AnimeDetailsController {
         }
     }
 
-    /**
-     * Custom exception class for when an anime is not found.
-     */
+
     public class AnimeNotFoundException extends RuntimeException {
         public AnimeNotFoundException(String message) {
             super(message);
         }
     }
+
+
+
 }

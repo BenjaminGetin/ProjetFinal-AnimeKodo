@@ -10,8 +10,4 @@ public class KitsuApiRestApplication {
 		SpringApplication.run(KitsuApiRestApplication.class, args);
 	}
 
-    //@PostConstruct
-    //public void init() {
-    //    kitsuApiService.syncDataFromKitsu();
-    //}
 }

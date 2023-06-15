@@ -21,12 +21,6 @@ public class GlobalExceptionHandler {
      * @param exception the Exception object representing the exception.
      * @return the name of the view template for the error page.
      */
-    @ExceptionHandler(Exception.class)
-    @ResponseStatus(HttpStatus.NOT_FOUND)
-    public String handleException(Model model, Exception exception) {
-        model.addAttribute("errorMessage", "The page you are looking for does not exist. (Error 404)");
-        return "error";
-    }
 
     /**
      * Handles the AnimeAlreadyExistsException and maps it to the error page.

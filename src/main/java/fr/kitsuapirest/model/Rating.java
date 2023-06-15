@@ -1,6 +1,5 @@
 package fr.kitsuapirest.model;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.Max;
 import jakarta.validation.constraints.Min;
@@ -14,14 +13,13 @@ public class Rating {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @NotNull(message = "La note ne peut pas être nulle")
-    @Min(value = 1, message = "La note minimale est 1")
-    @Max(value = 5, message = "La note maximale est 5")
+    @NotNull(message = "Rating cannot be null")
+    @Min(value = 1, message = "Minimum rating is 1")
+    @Max(value = 5, message = "Maximum rating is 5")
     private Integer rating;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id")
-    @JsonBackReference
     private User user;
 
 
@@ -32,7 +30,7 @@ public class Rating {
     @Column(unique = true)
     private String userAnimeKey;
 
-    public Rating(double v) {
+    public Rating() {
 
     }
 

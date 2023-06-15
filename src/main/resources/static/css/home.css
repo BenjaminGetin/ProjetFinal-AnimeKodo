@@ -77,7 +77,7 @@ body {
 }
 
 .slide-synopsis {
-    color: #666;
+    color: #FFFFFF;
     max-height: 100px;
     overflow: hidden;
     text-overflow: ellipsis;
@@ -87,7 +87,7 @@ body {
     overflow: hidden;
 }
 
-
+#fff
 
 .slide-details {
     margin-top: auto;

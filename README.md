@@ -44,7 +44,9 @@ To get started with Anime Kodo, follow these steps:
 
 1. Clone the repository:
 
-`git clone https://github.com/BenjaminGetin/ProjetFinal-AnimeKodo`
+```bash
+git clone https://github.com/BenjaminGetin/ProjetFinal-AnimeKodo
+```
 
 
 2. Open the project in your preferred IDE.
